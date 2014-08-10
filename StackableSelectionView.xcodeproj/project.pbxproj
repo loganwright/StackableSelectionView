@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		634C27AF6A994C23A532827A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E661AFA8F0043038005AEC7 /* libPods.a */; };
 		8013781D1996D38C005ABF3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013781C1996D38C005ABF3E /* AppDelegate.swift */; };
 		8013781F1996D38C005ABF3E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013781E1996D38C005ABF3E /* ViewController.swift */; };
 		801378221996D38C005ABF3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 801378201996D38C005ABF3E /* Main.storyboard */; };
 		801378241996D38C005ABF3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 801378231996D38C005ABF3E /* Images.xcassets */; };
 		801378301996D38D005ABF3E /* StackableSelectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013782F1996D38D005ABF3E /* StackableSelectionViewTests.swift */; };
+		8013783A1996D7D9005ABF3E /* StackableSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801378391996D7D9005ABF3E /* StackableSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,10 @@
 		801378291996D38D005ABF3E /* StackableSelectionViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StackableSelectionViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8013782E1996D38D005ABF3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8013782F1996D38D005ABF3E /* StackableSelectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackableSelectionViewTests.swift; sourceTree = "<group>"; };
+		801378391996D7D9005ABF3E /* StackableSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackableSelectionView.swift; sourceTree = "<group>"; };
+		8013783B1996F6ED005ABF3E /* StackableSelectionView-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StackableSelectionView-Bridging-Header.h"; sourceTree = "<group>"; };
+		8777F86E8D204934829209EF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		8E661AFA8F0043038005AEC7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				634C27AF6A994C23A532827A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,12 +61,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11AC13C8BAF84143B926E87D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E661AFA8F0043038005AEC7 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8013780E1996D38C005ABF3E = {
 			isa = PBXGroup;
 			children = (
 				801378191996D38C005ABF3E /* StackableSelectionView */,
 				8013782C1996D38D005ABF3E /* StackableSelectionViewTests */,
 				801378181996D38C005ABF3E /* Products */,
+				8777F86E8D204934829209EF /* Pods.xcconfig */,
+				11AC13C8BAF84143B926E87D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +97,8 @@
 				801378201996D38C005ABF3E /* Main.storyboard */,
 				801378231996D38C005ABF3E /* Images.xcassets */,
 				8013781A1996D38C005ABF3E /* Supporting Files */,
+				801378391996D7D9005ABF3E /* StackableSelectionView.swift */,
+				8013783B1996F6ED005ABF3E /* StackableSelectionView-Bridging-Header.h */,
 			);
 			path = StackableSelectionView;
 			sourceTree = "<group>";
@@ -116,9 +135,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 801378331996D38D005ABF3E /* Build configuration list for PBXNativeTarget "StackableSelectionView" */;
 			buildPhases = (
+				D80E538F79C74235B31324CE /* Check Pods Manifest.lock */,
 				801378131996D38C005ABF3E /* Sources */,
 				801378141996D38C005ABF3E /* Frameworks */,
 				801378151996D38C005ABF3E /* Resources */,
+				5A1508E9B98D43BE926A3417 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,11 +224,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5A1508E9B98D43BE926A3417 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D80E538F79C74235B31324CE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		801378131996D38C005ABF3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8013783A1996D7D9005ABF3E /* StackableSelectionView.swift in Sources */,
 				8013781F1996D38C005ABF3E /* ViewController.swift in Sources */,
 				8013781D1996D38C005ABF3E /* AppDelegate.swift in Sources */,
 			);
@@ -322,23 +377,27 @@
 		};
 		801378341996D38D005ABF3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8777F86E8D204934829209EF /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = StackableSelectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/loganwright/Dropbox/Programming/xCode/StackableSelectionView/StackableSelectionView/StackableSelectionView-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		801378351996D38D005ABF3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8777F86E8D204934829209EF /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = StackableSelectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/loganwright/Dropbox/Programming/xCode/StackableSelectionView/StackableSelectionView/StackableSelectionView-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -395,6 +454,7 @@
 				801378351996D38D005ABF3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		801378361996D38D005ABF3E /* Build configuration list for PBXNativeTarget "StackableSelectionViewTests" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +463,7 @@
 				801378381996D38D005ABF3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
