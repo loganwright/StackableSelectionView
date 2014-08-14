@@ -8,16 +8,6 @@
 
 import UIKit
 
-struct StackableSelectionViewDisplayGrid {
-    let rows: Int
-    let columns: Int
-    let frame: CGRect
-}
-
-var DisplayGridZero: StackableSelectionViewDisplayGrid {
-    return StackableSelectionViewDisplayGrid(rows: 0, columns: 0, frame: CGRectZero)
-}
-
 class StackableSelectionViewDisplayGridTile: Equatable {
     let row: Int
     let column: Int
@@ -32,7 +22,7 @@ class StackableSelectionViewDisplayGridTile: Equatable {
         self.size = size
         self.view = view
     }
-
+    
 }
 
 func == (left: StackableSelectionViewDisplayGridTile, right: StackableSelectionViewDisplayGridTile) -> Bool {
@@ -40,6 +30,23 @@ func == (left: StackableSelectionViewDisplayGridTile, right: StackableSelectionV
 }
 func != (left: StackableSelectionViewDisplayGridTile, right: StackableSelectionViewDisplayGridTile) -> Bool {
     return !(left == right)
+}
+
+class StackableSelectionViewDisplayGrid {
+    let rows: Int
+    let columns: Int
+    let frame: CGRect
+    var gridTiles: [StackableSelectionViewDisplayGridTile]
+    init(rows: Int, columns: Int, frame: CGRect, gridTiles: [StackableSelectionViewDisplayGridTile] = []) {
+        self.rows = rows
+        self.columns = columns
+        self.frame = frame
+        self.gridTiles = gridTiles
+    }
+}
+
+var DisplayGridZero: StackableSelectionViewDisplayGrid {
+    return StackableSelectionViewDisplayGrid(rows: 0, columns: 0, frame: CGRectZero)
 }
 
 @objc protocol StackableSelectionViewDelegate {
@@ -72,6 +79,7 @@ class StackableSelectionView: UIView {
     }
     
     var reverseStack: Bool = false
+    var inset: CGFloat = 2.0
     var delegate: StackableSelectionViewDelegate?
     
     private var isOpen: Bool = false
@@ -328,7 +336,6 @@ class StackableSelectionView: UIView {
             var targetOrigin = CGPointMake(gridTile.centerPoint.x - (gridTile.size.width / 2.0), gridTile.centerPoint.y - (gridTile.size.height / 2.0))
             var targetSize = gridTile.size
             
-            let inset: CGFloat = 2.0
             targetOrigin.y += inset
             targetOrigin.x += inset
             targetSize.width -= inset * 2.0
