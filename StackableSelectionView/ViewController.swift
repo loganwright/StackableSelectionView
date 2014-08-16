@@ -71,13 +71,12 @@ class ViewController: UIViewController {
         
         stackableView?.removeFromSuperview()
         stackableView = StackableSelectionView()
-        stackableView!.frame = self.stackableViewFrameForExample(self.currentExample)
-        stackableView!.displayGrid = self.stackableViewDisplayGridForExample(self.currentExample)
-        
-        stackableView!.viewStack = self.viewStackForExample(self.currentExample, numberOfRows: stackableView!.displayGrid.rows, andNumberOfColumns: stackableView!.displayGrid.columns)
-        self.stylizeStackableViewForExample(self.currentExample)
         stackableView!.backgroundColor = UIColor.darkGrayColor()
         stackableView!.layer.masksToBounds = true
+        self.stylizeStackableViewForExample(self.currentExample)
+        stackableView!.frame = self.stackableViewFrameForExample(self.currentExample)
+        stackableView!.displayGrid = self.stackableViewDisplayGridForExample(self.currentExample)
+        stackableView!.viewStack = self.viewStackForExample(self.currentExample, numberOfRows: stackableView!.displayGrid.rows, andNumberOfColumns: stackableView!.displayGrid.columns)
         stackableView!.delegate = self
         self.view.addSubview(stackableView)
     }
@@ -97,7 +96,7 @@ class ViewController: UIViewController {
             stackableView!.layer.cornerRadius = 15
             stackableView!.reverseStack = true
         case .Five:
-            stackableView!.layer.cornerRadius = stackableView!.frame.size.height / 2.0
+            stackableView!.layer.cornerRadius = 15
             stackableView!.reverseStack = true
         }
     }
@@ -132,9 +131,9 @@ class ViewController: UIViewController {
             height = 40.0
         case .Five:
             originX = 10
-            originY = 94
-            width = 60.0
-            height = 60.0
+            originY = 74
+            width = CGRectGetWidth(self.view.bounds) - (originX * 2)
+            height = 40.0
         }
         
         return CGRect(x: originX, y: originY, width: width, height: height)
@@ -203,10 +202,10 @@ class ViewController: UIViewController {
             let padding: CGFloat = 10
             let currentWidth: CGFloat = CGRectGetWidth(stackableView!.frame)
             
-            originX = CGRectGetMaxX(stackableView!.frame) + padding
-            originY = CGRectGetMinY(stackableView!.frame)
-            width = (CGFloat(currentWidth) * CGFloat(numberOfColumns))
-            height = CGRectGetHeight(stackableView!.frame)
+            originX = padding
+            originY = CGRectGetHeight(self.view.bounds) - padding
+            width = CGRectGetWidth(self.view.frame) - (padding * 2)
+            height = -240
         }
         
         let displayRect: CGRect = CGRect(x: originX, y: originY, width: width, height: height)
