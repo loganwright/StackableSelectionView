@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     get {
         var currentStackableView: StackableSelectionView? = self._stackableView
         if currentStackableView == nil {
-            currentStackableView = StackableSelectionView()
+            currentStackableView = StackableSelectionView(frame: CGRectZero)
         }
         return currentStackableView!
     }
@@ -70,15 +70,14 @@ class ViewController: UIViewController {
         self.currentExample.updateForIndex(index)
         
         stackableView?.removeFromSuperview()
-        stackableView = StackableSelectionView()
-        stackableView!.backgroundColor = UIColor.darkGrayColor()
-        stackableView!.layer.masksToBounds = true
-        self.stylizeStackableViewForExample(self.currentExample)
+        stackableView = nil
+        stackableView = StackableSelectionView(frame: CGRectZero)
         stackableView!.frame = self.stackableViewFrameForExample(self.currentExample)
+        self.stylizeStackableViewForExample(self.currentExample)
         stackableView!.displayGrid = self.stackableViewDisplayGridForExample(self.currentExample)
         stackableView!.viewStack = self.viewStackForExample(self.currentExample, numberOfRows: stackableView!.displayGrid.rows, andNumberOfColumns: stackableView!.displayGrid.columns)
         stackableView!.delegate = self
-        self.view.addSubview(stackableView)
+        self.view.addSubview(stackableView!)
     }
     
     func stylizeStackableViewForExample(example: StackableSelectionViewExample) {
@@ -99,6 +98,10 @@ class ViewController: UIViewController {
             stackableView!.layer.cornerRadius = 15
             stackableView!.reverseStack = true
         }
+        
+        
+        stackableView!.backgroundColor = UIColor.darkGrayColor()
+        stackableView!.layer.masksToBounds = true
     }
 
     func stackableViewFrameForExample(example: StackableSelectionViewExample) -> CGRect {
@@ -219,7 +222,7 @@ class ViewController: UIViewController {
         
         switch example {
         case .One:
-            for i in 1...numberOfViews {
+            for i in 0..<numberOfViews {
                 let label = UILabel()
                 label.backgroundColor = UIColor.blackColor()
                 label.textColor = [UIColor.whiteColor(), UIColor.blueColor(), UIColor.greenColor()][Int(arc4random_uniform(3))]
@@ -233,7 +236,7 @@ class ViewController: UIViewController {
             }
         case .Two:
             println(numberOfViews)
-            for i in 1...numberOfViews {
+            for i in 0..<numberOfViews {
                 let label = UILabel()
                 label.backgroundColor = UIColor.blackColor()
                 label.textColor = [UIColor.whiteColor(), UIColor.blueColor(), UIColor.greenColor()][Int(arc4random_uniform(3))]
@@ -246,7 +249,7 @@ class ViewController: UIViewController {
                 viewStack.append(label)
             }
         case .Three:
-            for i in 1...numberOfViews {
+            for i in 0..<numberOfViews {
                 let label = UILabel()
                 label.backgroundColor = UIColor.blackColor()
                 label.textColor = [UIColor.whiteColor(), UIColor.blueColor(), UIColor.greenColor()][Int(arc4random_uniform(3))]
@@ -259,7 +262,7 @@ class ViewController: UIViewController {
                 viewStack.append(label)
             }
         case .Four:
-            for i in 1...numberOfViews {
+            for i in 0..<numberOfViews {
                 let label = UILabel()
                 label.backgroundColor = UIColor.blackColor()
                 label.textColor = [UIColor.whiteColor(), UIColor.blueColor(), UIColor.greenColor()][Int(arc4random_uniform(3))]
@@ -296,10 +299,10 @@ extension ViewController: StackableSelectionViewDelegate {
         println("Did finish animating")
     }
     func stackableView(stackableSelectionView: StackableSelectionView, didDeselectView view: UIView) {
-        println("Did deselect view \((view as UILabel).text)")
+        println("Did deselect view \((view as! UILabel).text)")
     }
     func stackableView(stackableSelectionView: StackableSelectionView, didSelectView view: UIView) {
-        println("Did select view \((view as UILabel).text)")
+        println("Did select view \((view as! UILabel).text)")
     }
 }
 

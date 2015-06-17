@@ -95,12 +95,20 @@ class StackableSelectionView: UIView {
     
     // MARK: - Initialization
     
-    init(frame: CGRect = CGRectZero) {
+    convenience init() {
+        self.init(frame: CGRectZero)
+    }
+    
+    override init(frame: CGRect = CGRectZero) {
         super.init(frame: frame)
         
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: "handleTap:")
         self.addGestureRecognizer(tap)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Property Processing
@@ -218,13 +226,13 @@ class StackableSelectionView: UIView {
         view.userInteractionEnabled = false
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.mainScreen().scale
-        self.superview.addSubview(view)
+        self.superview?.addSubview(view)
     }
     
     // MARK: - Selection
     
     func handleViewTap(tap: UITapGestureRecognizer) {
-        let tappedView = tap.view
+        let tappedView = tap.view!
         let idx = find(self.viewStack, tappedView)!
         let selectedTile = self.gridTiles[idx]
         let alreadySelected = selectedTile == self.currentlySelectedGridTile
@@ -273,12 +281,12 @@ class StackableSelectionView: UIView {
         
         self.currentlySelectedGridTile = gridTileOne
         
-        let superViewSubviews = self.superview.subviews as [UIView]
+        let superViewSubviews: [UIView] = self.superview?.subviews as! [UIView] ?? []
         
         let viewOneIndex: Int = find(superViewSubviews, viewOne)!
         let viewTwoIndex: Int = find(superViewSubviews, viewTwo)!
-        self.superview.insertSubview(viewTwo, atIndex: viewOneIndex)
-        self.superview.insertSubview(viewOne, atIndex: viewTwoIndex)
+        self.superview?.insertSubview(viewTwo, atIndex: viewOneIndex)
+        self.superview?.insertSubview(viewOne, atIndex: viewTwoIndex)
     }
     
     // MARK: Open | Close
@@ -308,14 +316,14 @@ class StackableSelectionView: UIView {
     
     func closeViewAtIndex(index: Int) {
         if index >= 0 && index < self.maxCount {
-            let nameKey = SVAnimationStatus.Closed.toRaw() + "_" + "\(index)"
+            let nameKey = SVAnimationStatus.Closed.rawValue + "_" + "\(index)"
             
             let view = self.viewStack[index]
             view.userInteractionEnabled = false
             view.pop_removeAllAnimations()
             
             let popSpring = POPSpringAnimation()
-            popSpring.property = POPAnimatableProperty.propertyWithName(kPOPViewFrame) as POPAnimatableProperty
+            popSpring.property = POPAnimatableProperty.propertyWithName(kPOPViewFrame) as! POPAnimatableProperty
             popSpring.name = nameKey
             popSpring.delegate = self
             view.pop_addAnimation(popSpring, forKey: nameKey)
@@ -343,7 +351,7 @@ class StackableSelectionView: UIView {
             
             let targetRect = CGRect(origin: targetOrigin, size: targetSize)
             
-            let nameKey = SVAnimationStatus.Open.toRaw() + "_" + "\(index)"
+            let nameKey = SVAnimationStatus.Open.rawValue + "_" + "\(index)"
             
             let view: UIView! = gridTile.view
             view.userInteractionEnabled = true
@@ -351,7 +359,7 @@ class StackableSelectionView: UIView {
             view.pop_removeAllAnimations()
             
             let popSpring = POPSpringAnimation()
-            popSpring.property = POPAnimatableProperty.propertyWithName(kPOPViewFrame) as POPAnimatableProperty
+            popSpring.property = POPAnimatableProperty.propertyWithName(kPOPViewFrame) as! POPAnimatableProperty
             popSpring.name = nameKey
             popSpring.delegate = self
             popSpring.toValue = NSValue(CGRect: targetRect)
@@ -377,12 +385,12 @@ extension StackableSelectionView: POPAnimationDelegate {
         let currentProgress = anim.currentProgress
         if currentProgress >= minimumProgress {
             let nameComponents: NSArray! = anim.name.componentsSeparatedByString("_")
-            let prefix: String = nameComponents.firstObject! as String
-            let currentIndex: Int = (nameComponents.lastObject! as String).toInt()!
+            let prefix: String = nameComponents.firstObject! as! String
+            let currentIndex: Int = (nameComponents.lastObject! as! String).toInt()!
             
             anim.delegate = nil
             
-            if prefix == SVAnimationStatus.Open.toRaw() {
+            if prefix == SVAnimationStatus.Open.rawValue {
                 if self.isOpen {
                     if !reverseStack {
                         self.openViewAtIndex(currentIndex + 1)
@@ -395,7 +403,7 @@ extension StackableSelectionView: POPAnimationDelegate {
                     self.closeViewAtIndex(currentIndex)
                 }
             }
-            else if prefix == SVAnimationStatus.Closed.toRaw() {
+            else if prefix == SVAnimationStatus.Closed.rawValue {
                 if !self.isOpen {
                     if !self.reverseStack {
                         self.closeViewAtIndex(currentIndex - 1)
